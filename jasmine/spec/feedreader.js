@@ -78,9 +78,9 @@ $(function() {
              done();
            });
          });
-         it('loadFeed 函数被调用而且工作正常',function(done){
+         
+         it('loadFeed 函数被调用而且工作正常',function(){
            expect($('.feed .entry').length).not.toBe(0);
-           done();
          });
     });
     /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
@@ -93,9 +93,6 @@ $(function() {
              originTime,
              newContent;
          beforeEach(function(done) {
-           originTime = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-           jasmine.DEFAULT_TIMEOUT_INTERVAL=90000;//网速不好
-
            loadFeed(0,function(){
              oldContent = $('.feed').html();
              loadFeed(1,function(){
@@ -103,13 +100,10 @@ $(function() {
                done();
              });
            });
-         });
-         it('当用 loadFeed 函数加载一个新源的时候内容会真的改变',function(done){
+         },90000);
+
+         it('当用 loadFeed 函数加载一个新源的时候内容会真的改变',function(){
            expect(newContent).not.toEqual(oldContent);
-           done();
-         });
-         afterEach(function(){
-           jasmine.DEFAULT_TIMEOUT_INTERVAL=originTime;
          });
     });
 }());
